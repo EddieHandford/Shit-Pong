@@ -10,7 +10,7 @@ import winsound
 wn = turtle.Screen()
 wn.title("Pong by Eddie")
 wn.bgcolor("blue")
-wn.setup(width=800 , height=600)
+wn.setup(width=800 , height=800)
 wn.tracer(0)
 
 
@@ -68,7 +68,7 @@ pen.color("white")
 pen.penup()
 pen.hideturtle()
 pen.goto(0,260)
-pen.write("PlayerA: 0  PlayerB: 0" , align="center" , font=("Courier" , 24 , "normal"))
+pen.write("PlayerA: 0  Computer: 0" , align="center" , font=("Courier" , 24 , "normal"))
 
 
 
@@ -105,9 +105,19 @@ wn.onkeypress(paddle_a_up, "w")
 
 wn.onkeypress(paddle_a_down, "s")
 
-wn.onkeypress(paddle_b_up, "i")
 
-wn.onkeypress(paddle_b_down, "k")
+
+#if ball.ycor > paddle_b.ycor() : 
+ #   paddle_b_up
+
+#if ball.ycor < paddle_b.ycor() : 
+#    paddle_b_down
+
+count_hits = 0
+
+#this is the two player eddition , about to be removed
+#wn.onkeypress(paddle_b_up, "i")
+#wn.onkeypress(paddle_b_down, "k")
 
 
 
@@ -121,6 +131,8 @@ while True:
 #    ball.dy = (score_a+score_b)*0.01 + 0.03 # max move is by 2 pixels
     
     #move ball
+    #ball.dx = ball.dx + (count_hits*0.05)
+   # ball.dy = ball.dy + (count_hits*0.05)
     ball.setx(ball.xcor() + ball.dx)
     ball.sety(ball.ycor() + ball.dy)
     
@@ -164,15 +176,33 @@ while True:
         
     if ball.xcor() > 340 and ball.xcor() < 350 and (ball.ycor() < paddle_b.ycor() + 50 and ball.ycor() > paddle_b.ycor() - 50):
         ball.setx(340)
-        ball.dx *= -1
+        
         winsound.PlaySound("bounce.wav" , winsound.SND_ASYNC)
+        count_hits += 1
+        ball.dx = ball.dx + (0.05)
+        ball.dy = ball.dy + (0.05)
+        ball.dx *= -1
+        
         
     if ball.xcor() < -340 and ball.xcor() > -350 and (ball.ycor() < paddle_a.ycor() + 50 and ball.ycor() > paddle_a.ycor() - 50):
         ball.setx(-340)
-        ball.dx *= -1
+        
         winsound.PlaySound("bounce.wav" , winsound.SND_ASYNC)
+        count_hits += 1
         
+        ball.dx = ball.dx - (0.05)
+        ball.dy = ball.dy - (0.05)
+        ball.dx *= -1
         
+    if ball.ycor() > paddle_b.ycor() : 
+         y = paddle_b.ycor() #assidle paddle y coor to a "y"
+         y += 20 # goes up by 20 pixels when you press up
+         paddle_b.sety(y)
+
+    if ball.ycor() < paddle_b.ycor() : 
+        y = paddle_b.ycor() #assidle paddle y coor to a "y"
+        y -= 20 # goes up by 20 pixels when you press up
+        paddle_b.sety(y)
         
         
         
