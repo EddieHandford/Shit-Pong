@@ -1,7 +1,7 @@
 # SPEED PONG!
 
-![](speed%20pong.JPG)
 
+<img src="speed pong.JPG" width="200" >
 
 
 What?
