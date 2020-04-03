@@ -10,7 +10,9 @@ I made this in a single sitting and it was purely for fun.
 
 
 designed to run on windows, audio will not work on mac os or linux 
+
 controls are W and S
+
 you lose when the speed of the ball gets an overflow error!
 
 
